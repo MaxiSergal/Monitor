@@ -1,66 +1,29 @@
-#ifndef DATAREADER_H
-#define DATAREADER_H
+#ifndef DATAREADER_L_H
+#define DATAREADER_L_H
 
-#include <QString>
+#include "datareader.h"
+#include <QFile>
 
-class DataReader
+class DataReader_L : public DataReader
 {
-
-  struct mem_stat_t
-  {
-    size_t MemTotal;
-    size_t MemFree;
-    size_t Buffers;
-    size_t Cached;
-    size_t SwapTotal;
-    size_t SwapFree;
-    size_t Active;
-    size_t Inactive;
-    size_t SwapCached;
-  } memStat;
-
-  struct cpu_stat_t
-  {
-    struct core_stat_t
-    {
-      QString processor;
-      QString vendor_id;
-      QString cpu_family;
-      QString model;
-      QString model_name;
-      QString stepping;
-      QString cpu_MHz;
-      QString cache_size;
-      QString physical_id;
-      QString siblings;
-      QString core_id;
-      QString cpu_cores;
-
-      core_stat_t *next = nullptr;
-    };
-
-    core_stat_t *headCore = nullptr;
-    bool isAllocated = false;
-
-    ~cpu_stat_t()
-    {
-      while(headCore)
-      {
-        core_stat_t *tmpCore = headCore;
-        headCore = headCore->next;
-        delete tmpCore;
-      }
-    };
-
-  } cpuStat;
-
   public:
-    DataReader();
-    void loadFromFile();
+    DataReader_L();
+
+    void printMemStat() { std::cout << memStat << std::endl; }
+    void printCpuStat() { std::cout << cpuStat << std::endl; }
+    void initStat() override;
+    void updateStat() override;
 
   private:
+    void updateMemStat();
+    void updateCpuStat();
+
     QString path {"/proc"};
+
+    QFile meminfo {path + "/meminfo"};
+    QFile cpuinfo {path + "/cpuinfo"};
+    QFile diskinfo {};
 
 };
 
-#endif // DATAREADER_H
+#endif // DATAREADER_L_H

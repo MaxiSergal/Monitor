@@ -19,7 +19,7 @@ qt_add_executable(Monitor
     UI/mainwindow.cpp
     UI/mainwindow.h
     UI/mainwindow.ui
-    datareader.h datareader.cpp
+    datareader_l.h datareader_l.cpp
     controller.h controller.cpp
 )
 
@@ -32,6 +32,7 @@ qt_add_qml_module(Monitor
     content/DiskSpeedometer.qml
     content/MemSpeedometer.qml
     content/Speedometer.qml
+    SOURCES datareader.h
 )
 
 target_link_libraries(Monitor PRIVATE Qt${QT_VERSION_MAJOR}::Widgets PRIVATE Qt6::Quick)

@@ -1,21 +1,15 @@
-// #include "UI/mainwindow.h"
-// #include "datareader.h"
+#include "UI/mainwindow.h"
+#include "datareader_l.h"
 
-#include <QApplication>
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
 
 int main(int argc, char *argv[])
 {
-  QGuiApplication app(argc, argv);
-  QQmlApplicationEngine engine("qml/content/App.qml");
+  MainWindow mainWindow(argc, argv);
+  DataReader_L reader;
+  // reader.initStat();
+  // reader.updateStat();
+  // reader.printMemStat();
+  // reader.printCpuStat();
 
-  // QApplication a(argc, argv);
-  // MainWindow w;
-  // w.show();
-  // DataReader reader;
-  // reader.loadFromFile();
-  // reader.loadFromFile();
-
-  return app.exec();
+  return mainWindow.run();
 }

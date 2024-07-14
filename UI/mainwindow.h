@@ -1,22 +1,19 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
-
-class MainWindow : public QMainWindow {
+class MainWindow : public QObject
+{
   Q_OBJECT
 
   public:
-  MainWindow(QWidget *parent = nullptr);
-  ~MainWindow();
+    MainWindow(int argc, char *argv[]);
+    int run();
 
   private:
-  Ui::MainWindow *ui;
+    QGuiApplication app;
+    QQmlApplicationEngine engine;
 };
 #endif // MAINWINDOW_H

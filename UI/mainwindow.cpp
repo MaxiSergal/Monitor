@@ -1,9 +1,13 @@
 #include "mainwindow.h"
-#include "./ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow) {
-  ui->setupUi(this);
+MainWindow::MainWindow(int argc, char *argv[]) : app(argc, argv), engine()
+{
+  engine.load(QUrl(QStringLiteral("qml/content/App.qml")));
+  if (engine.rootObjects().isEmpty())
+    QCoreApplication::exit(-1);
 }
 
-MainWindow::~MainWindow() { delete ui; }
+int MainWindow::run()
+{
+  return app.exec();
+}
