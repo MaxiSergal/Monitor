@@ -1,27 +1,26 @@
 #ifndef DATAREADER_L_H
 #define DATAREADER_L_H
 
-#include "datareader.h"
+#include "idatareader.h"
 #include <QFile>
 
-class DataReader_L : public DataReader
+class DataReader_L : public IDataReader
 {
   public:
     DataReader_L();
 
-    void printMemStat() { std::cout << memStat << std::endl; }
-    void printCpuStat() { std::cout << cpuStat << std::endl; }
+    // void printMemStat() { std::cout << memStat << std::endl; }
+    // void printCpuStat() { std::cout << cpuStat << std::endl; }
     void initStat() override;
-    void updateStat() override;
+
+    MemStat *getMEMstat() override;
+    CpuStat *getCPUstat() override;
 
   private:
-    void updateMemStat();
-    void updateCpuStat();
-
     QString path {"/proc"};
 
-    QFile meminfo {path + "/meminfo"};
-    QFile cpuinfo {path + "/cpuinfo"};
+    QFile meminfo  {path + "/meminfo"};
+    QFile cpuinfo  {path + "/cpuinfo"};
     QFile diskinfo {};
 
 };

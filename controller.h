@@ -3,23 +3,28 @@
 
 #include <QObject>
 #include <QTimer>
-
-class DataReader;
-class MainWindow;
+#include "UI/mainwindow.h"
+#include "idatareader.h"
 
 class Controller : public QObject
 {
   Q_OBJECT
+
   public:
-    Controller(DataReader *reader, MainWindow *m_window);
+    Controller(IDataReader *reader, MainWindow *m_window);
 
   public slots:
-    void updateData() {};
+    void updateData();
 
   private:
-    DataReader *reader;
-    MainWindow *m_window;
-    QTimer     *timer;
+    IDataReader *reader;
+    MainWindow  *m_window;
+    QTimer       timer;
+
+    void startTimer();
+    void stopTimer();
+
+    const size_t MS = 5000;
 };
 
 #endif // CONTROLLER_H

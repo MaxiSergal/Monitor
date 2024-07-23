@@ -32,7 +32,10 @@ qt_add_qml_module(Monitor
     content/DiskSpeedometer.qml
     content/MemSpeedometer.qml
     content/Speedometer.qml
-    SOURCES datareader.h
+    SOURCES idatareader.h
+    SOURCES structs.h
+    SOURCES cpustat.h
+    SOURCES memstat.h
 )
 
 target_link_libraries(Monitor PRIVATE Qt${QT_VERSION_MAJOR}::Widgets PRIVATE Qt6::Quick)
